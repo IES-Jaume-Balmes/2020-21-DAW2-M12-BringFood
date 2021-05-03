@@ -8,10 +8,10 @@ use App\Models\Role;
 
 class RoleController extends Controller
 {
-    public function saveRole(CreateRoleRequest $request)
+    public function store(CreateRoleRequest $request)
     {
     	$role=Role::create([
-    		'type' => $request->name,
+    		'type' => $request->type,
     		'description' => $request->description,
     	]);
     	return response()->json([

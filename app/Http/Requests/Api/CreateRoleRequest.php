@@ -30,8 +30,8 @@ class CreateRoleRequest extends FormRequest
     {
         return [
             'type'=> 'required|enum_value:' . RoleType::class,
-            'type' => 'required|enum_key:' . RoleType::class,
-            'type' => 'required|enum:' . RoleType::class,
+            //'type' => 'required|enum_key:' . RoleType::class,
+            //'type' => 'required|enum:' . RoleType::class,
             'description'=>['required','max:400'],
         ];
     }
@@ -39,9 +39,9 @@ class CreateRoleRequest extends FormRequest
     public function messages()
     {
         return ['type.required' => 'Este campo es obligatorio',
-                'type.enum_value:' => 'Tipo de rol entre estas opciones: ',
-                'type.enum_key:' => 'Tipo de rol entre estas opciones: ',
-                'type.enum:' => 'Tipo de rol entre estas opciones: ',
+                //'type.enum_value:' => 'Tipo de rol entre estas opciones: ',
+                //'type.enum_key:' => 'Tipo de rol entre estas opciones: ',
+                //'type.enum:' => 'Tipo de rol entre estas opciones: ',
                 'description.required' => 'Este campo es obligatorio',
                 'description.max' => 'La descripcion no puede superar los 400 caracteres'];
     }

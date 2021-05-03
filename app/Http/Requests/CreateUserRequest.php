@@ -25,6 +25,7 @@ class CreateUserRequest extends FormRequest
     public function rules()
     {
         return [
+            'role_id'=>['required','unique'],
             'name'=>['required','max:100'],
             'email'=>['required','unique','email'],
             'password'=>['required'],

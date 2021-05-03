@@ -4,11 +4,11 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Http\Requests\Api\CreateRoleRequest;
-use App\Models\Role;
+use App\Http\Requests\Api\CreateUserRequest;
+use App\Models\User;
 use App\Api\RequestOk;
 
-class RoleController extends Controller
+class UserController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -26,13 +26,19 @@ class RoleController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(CreateRoleRequest $request)
+    public function store(CreateUserRequest $request)
     {
-        $role=Role::create([
-            'type' => $request->type,
-            'description' => $request->description,
+        $user=User::create([
+            'role_id' => $request->role_id,
+            'name' => $request->name,
+            'email' => $request->email,
+            'type_document' => $request->type_document,
+            'document' => $request->document,
+            'prefix' => $request->prefix,
+            'mobile' => $request->mobile,
+            'phone' => $request->phone,
         ]);
-        return (new RequestOk($role))->store();
+        return (new RequestOk($user))->store();
     }
 
     /**
