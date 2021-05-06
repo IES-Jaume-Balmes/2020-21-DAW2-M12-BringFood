@@ -4,12 +4,11 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Http\Requests\Api\CreateRoleRequest;
-use App\Models\Role;
+use App\Http\Requests\Api\CreateOrderRequest;
+use App\Models\Order;
 use App\Api\RequestOk;
-use App\Http\Requests\Api\UpdateRoleRequest;
 
-class RoleController extends Controller
+class OrderController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -18,8 +17,7 @@ class RoleController extends Controller
      */
     public function index()
     {
-        $roles=Role::all();
-        return (new RequestOk($roles))->show();
+        //
     }
 
     /**
@@ -28,13 +26,13 @@ class RoleController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(CreateRoleRequest $request)
+    public function store(CreateOrderRequest $request)
     {
-        $role=Role::create([
-            'type' => $request->type,
-            'description' => $request->description,
+        $order=Order::create([
+            'user_id' => $request->user_id,
+            'total_price' => $request->total_price,
         ]);
-        return (new RequestOk($role))->store();
+        return (new RequestOk($order))->store();
     }
 
     /**
@@ -45,9 +43,7 @@ class RoleController extends Controller
      */
     public function show($id)
     {
-        $role=Role::find($id);
-        return (new RequestOk($role))->show();
-
+        //
     }
 
     /**
@@ -57,15 +53,9 @@ class RoleController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateRoleRequest $request, $id)
+    public function update(Request $request, $id)
     {
-        $role=Role::find($id);
-        $role->update([
-            'id' => $id,
-            //'type' => $request->type, the type must not be updated
-            'description' => $request->description,
-        ]);
-        return (new RequestOk($user))->update();
+        //
     }
 
     /**
@@ -76,6 +66,6 @@ class RoleController extends Controller
      */
     public function destroy($id)
     {
-        //No posible
+        //
     }
 }

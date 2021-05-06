@@ -7,6 +7,9 @@ use Illuminate\Http\Request;
 use App\Http\Requests\Api\CreateUserRequest;
 use App\Models\User;
 use App\Api\RequestOk;
+use Illuminate\Support\Facades\Hash;
+use App\Http\Requests\Api\UpdateUserRequest;
+use App\Models\AddressUser;
 
 class UserController extends Controller
 {
@@ -17,7 +20,8 @@ class UserController extends Controller
      */
     public function index()
     {
-        //
+        $users=User::all();
+        return (new RequestOk($users))->show();
     }
 
     /**
@@ -32,6 +36,7 @@ class UserController extends Controller
             'role_id' => $request->role_id,
             'name' => $request->name,
             'email' => $request->email,
+            'password' => Hash::make($request->password),
             'type_document' => $request->type_document,
             'document' => $request->document,
             'prefix' => $request->prefix,
@@ -49,7 +54,8 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        //
+        $user=User::find($id);
+        return (new RequestOk($user))->show();
     }
 
     /**
@@ -59,9 +65,23 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UpdateUserRequest $request, $id)
     {
-        //
+        $user=User::find($id);
+        $user->update([
+            //'id' => $id,
+            //'role_id' => $request->role_id,
+            'id' => $id,
+            'name' => $request->name,
+            'email' => $request->email,
+            //'password' => Hash::make($request->password),
+            'type_document' => $request->type_document,
+            'document' => $request->document,
+            'prefix' => $request->prefix,
+            'mobile' => $request->mobile,
+            'phone' => $request->phone,
+        ]);
+        return (new RequestOk($user))->update();
     }
 
     /**
@@ -71,7 +91,16 @@ class UserController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
-    {
-        //
+    {   
+        $addressUser=AddressUser::where('user_id',$id)->get();
+        if(count($addressUser)>0){
+            return (new RequestOk($addressUser))->noPossibleDelete();
+        }
+        $user=User::find($id);
+        if($user==null){
+            return (new RequestOk($user))->notFoundResource();
+        }
+        $user->delete();
+        return (new RequestOk($user))->delete();
     }
 }

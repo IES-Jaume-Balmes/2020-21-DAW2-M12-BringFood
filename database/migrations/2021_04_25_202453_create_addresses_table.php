@@ -18,10 +18,10 @@ class CreateAddressesTable extends Migration
             $table->id();
             $table->timestamps();
             $table->enum('via', Via::getValues())->default(Via::AV);
-            $table->string('name');
+            $table->string('name',40);
             $table->string('number',4);
             $table->string('floor',2);
-            $table->string('door',1);
+            $table->string('door',2);
             $table->string('stair',1);
             $table->string('zip_code',5);
         });

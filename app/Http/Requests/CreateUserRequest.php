@@ -4,6 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
+
 class CreateUserRequest extends FormRequest
 {
     /**
@@ -24,14 +25,15 @@ class CreateUserRequest extends FormRequest
      */
     public function rules()
     {
+        $roles=Role::findAll();
         return [
-            'role_id'=>['required','unique'],
             'name'=>['required','max:100'],
             'email'=>['required','unique','email'],
             'password'=>['required'],
             'role_id'=>['required'],
             'type_document'=>['required'],
-            'mobile'=>['required'],
+            'mobile'=>['required','regex:\d{9}|^$'],
+            'phone'=> 'nullable|regex:/^(\d{9})?$/',
         ];
     }
 

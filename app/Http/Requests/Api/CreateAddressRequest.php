@@ -7,9 +7,9 @@ use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Validation\ValidationException;
 use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Http\JsonResponse;
-use App\Enums\RoleType;
+use App\Enums\Via;
 
-class CreateRoleRequest extends FormRequest
+class CreateAddressRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -29,21 +29,22 @@ class CreateRoleRequest extends FormRequest
     public function rules()
     {
         return [
-            'type'=> 'required|unique:roles|enum_value:' . RoleType::class,
-            //'type' => 'required|enum_key:' . RoleType::class,
-            //'type' => 'required|enum:' . RoleType::class,
-            'description'=>['required','max:400'],
+            'via'=> 'required|enum_value:' . Via::class,
+            'name' => 'required|min:1|max:40',
+            'number' => 'digits_between:1,4',
+            'floor' => 'digits_between:1,2',
+            'door' => 'digits_between:1,2',
+            //'stair' => 'required|min:3|max:3',
+            'zip_code'=>'digits_between:5,5',
+            'user_id'=>'required'
         ];
     }
 
     public function messages()
     {
-        return ['type.required' => 'Este campo es obligatorio',
-                //'type.enum_value:' => 'Tipo de rol entre estas opciones: ',
-                //'type.enum_key:' => 'Tipo de rol entre estas opciones: ',
-                //'type.enum:' => 'Tipo de rol entre estas opciones: ',
-                'description.required' => 'Este campo es obligatorio',
-                'description.max' => 'La descripcion no puede superar los 400 caracteres'];
+        return ['via.required' => 'Este campo es obligatorio',
+                'name.required' => 'Este campo es obligatorio',
+            ];
     }
 
     protected function failedValidation(Validator $validator)

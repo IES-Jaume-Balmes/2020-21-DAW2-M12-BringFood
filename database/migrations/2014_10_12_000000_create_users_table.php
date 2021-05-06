@@ -23,10 +23,10 @@ class CreateUsersTable extends Migration
             $table->rememberToken();
             $table->timestamps();
             $table->enum('type_document', DocumentType::getValues())->default(DocumentType::NIF);
-            $table->string('document',9);
+            $table->string('document',9)->unique()->nullable();
             $table->string('prefix',3)->default('+34');
             $table->string('mobile',9);
-            $table->string('phone',9);
+            $table->string('phone',9)->nullable();
         });
     }
 

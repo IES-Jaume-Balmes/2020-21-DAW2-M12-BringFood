@@ -17,7 +17,7 @@ class CreateRolesTable extends Migration
         Schema::create('roles', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
-            $table->enum('type', RoleType::getValues())->default(RoleType::CLIENT);
+            $table->enum('type', RoleType::getValues())->default(RoleType::CLIENT)->unique();
             $table->string('description');
         });
     }

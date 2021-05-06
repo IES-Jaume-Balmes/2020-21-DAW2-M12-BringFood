@@ -16,8 +16,12 @@ class CreateOrdersTable extends Migration
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
-            $table->date('date_send');
+            $table->timestamp('date_request')->useCurrent()->nullable();
+            //$table->date('date_request')->useCurrent()->nullable();
+            $table->timestamp('date_send')->nullable();
+            $table->timestamp('date_deliver')->nullable();
             $table->float('total_price',8,2);
+
         });
     }
 

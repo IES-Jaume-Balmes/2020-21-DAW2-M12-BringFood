@@ -8,9 +8,9 @@ use Illuminate\Validation\ValidationException;
 use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Http\JsonResponse;
 use App\Enums\DocumentType;
-use App\Models\Role;
+//use App\Models\Role;
 
-class CreateUserRequest extends FormRequest
+class UpdateUserRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -19,7 +19,6 @@ class CreateUserRequest extends FormRequest
      */
     public function authorize()
     {
-        //return false;
         return true;
     }
 
@@ -38,13 +37,10 @@ class CreateUserRequest extends FormRequest
         }*/
         return [
             //'role_id' => 'required|regex:/['.$role_id_values.']/',
-            'role_id' => 'required|exists:roles,id',
+            //'id' => 'regex:/^('.$this->id.')/',
             'name' => 'required|max:50',
-            'email' => 'required|unique:users|email:rfc,dns',
-            'password' => 'required|min:6',
+            'email' => 'required|unique:users,email,'.$this->id.'|email:rfc,dns',
             'type_document'=> 'required|enum_value:' . DocumentType::class,
-            //'type_document' => 'required|enum_key:' . DocumentType::class,
-            //'type_document' => 'required|enum:' . DocumentType::class,
             'document' => 'required_if:type_document,'.DocumentType::CIF,
             'prefix' => 'required|min:3|max:3',
             'mobile'=>['required','min:9','max:9','regex:/^(\d{9})/'],
@@ -54,16 +50,16 @@ class CreateUserRequest extends FormRequest
 
     public function messages()
     {
+        /*
         $roles=Role::all();
         $role_id_values='';
         foreach ($roles as $key => $value) {
             $role_id_values.=$value->id.', ';
-        }
-        return ['name.required' => 'Este campo es obligatorio',
+        }*/
+        return [//'id.regex' => 'El id no es el mismo que la url',
+                'name.required' => 'Este campo es obligatorio',
                 'name.max' => 'El nombre no debe pasar de 50 caracteres',
                 'email.required' => 'Este campo es obligatorio',
-                'password.required' => 'Este campo es obligatorio',
-                'password.min' => 'Este campo debe tener minimo 6 caracteres',
                 'document.required' => 'Este campo es obligatorio si el tipo de documento es CIF',
                 'prefix.required' => 'Este campo es obligatorio',
                 'prefix.min' => 'El prefijo son 3 caracteres',
@@ -74,7 +70,6 @@ class CreateUserRequest extends FormRequest
                 'phone.min' => 'El movil tiene 9 caracteres',
                 'phone.max' => 'El movil tiene 9 caracteres',
                 //'role_id.regex' => 'Debe ser entre estas opciones: '.substr($role_id_values,0,-2),
-                'role_id.exists' => 'Debe ser entre estas opcioness: '.substr($role_id_values,0,-2),
             ];
     }
 
@@ -85,5 +80,4 @@ class CreateUserRequest extends FormRequest
             response()->json(['errors' => $errors, 'status'=>422], JsonResponse::HTTP_UNPROCESSABLE_ENTITY)
         );
     }
-
 }

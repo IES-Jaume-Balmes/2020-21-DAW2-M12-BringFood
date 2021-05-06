@@ -7,9 +7,8 @@ use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Validation\ValidationException;
 use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Http\JsonResponse;
-use App\Enums\RoleType;
 
-class CreateRoleRequest extends FormRequest
+class UpdateRoleRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -29,20 +28,13 @@ class CreateRoleRequest extends FormRequest
     public function rules()
     {
         return [
-            'type'=> 'required|unique:roles|enum_value:' . RoleType::class,
-            //'type' => 'required|enum_key:' . RoleType::class,
-            //'type' => 'required|enum:' . RoleType::class,
             'description'=>['required','max:400'],
         ];
     }
 
     public function messages()
     {
-        return ['type.required' => 'Este campo es obligatorio',
-                //'type.enum_value:' => 'Tipo de rol entre estas opciones: ',
-                //'type.enum_key:' => 'Tipo de rol entre estas opciones: ',
-                //'type.enum:' => 'Tipo de rol entre estas opciones: ',
-                'description.required' => 'Este campo es obligatorio',
+        return ['description.required' => 'Este campo es obligatorio',
                 'description.max' => 'La descripcion no puede superar los 400 caracteres'];
     }
 
