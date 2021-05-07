@@ -19,7 +19,7 @@ class CreateFoodsTable extends Migration
             $table->string('name');
             $table->string('detail');
             $table->string('img_url');
-            $table->float('amount',6,2);
+            $table->float('price',6,2);
         });
     }
 

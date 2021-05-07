@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use App\Http\Requests\Api\CreateOrderRequest;
 use App\Models\Order;
 use App\Api\RequestOk;
+use App\Http\Requests\Api\UpdateOrderRequest;
+use Carbon;
 
 class OrderController extends Controller
 {
@@ -17,7 +19,8 @@ class OrderController extends Controller
      */
     public function index()
     {
-        //
+        $orders=Order::all();
+        return (new RequestOk($orders))->show();
     }
 
     /**
@@ -43,7 +46,8 @@ class OrderController extends Controller
      */
     public function show($id)
     {
-        //
+        $order=Order::find($id);
+        return (new RequestOk($order))->show();
     }
 
     /**
@@ -53,9 +57,17 @@ class OrderController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UpdateOrderRequest $request, $id)
     {
-        //
+        $order=Order::find($id);
+        $order->update([
+            'id' => $id,
+            'total_price' => $request->total_price,
+            'date_request' => Carbon\Carbon::now(),
+            'date_send' => $request->date_send,
+            'date_deliver' => $request->date_deliver,
+        ]);
+        return (new RequestOk($order))->update();
     }
 
     /**

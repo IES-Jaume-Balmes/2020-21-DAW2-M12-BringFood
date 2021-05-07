@@ -18,12 +18,18 @@ class Order extends Model
         'user_id',
         'date_request',
         'date_send',
+        'date_deliver',
         'total_price'
     ];
 
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function foods()
+    {
+        return $this->hasMany(Food::class);
     }
 
 }
