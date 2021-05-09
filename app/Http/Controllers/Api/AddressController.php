@@ -4,11 +4,11 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Http\Requests\Api\CreateAddressRequest;
+use App\Http\Requests\Api\Address\CreateAddressRequest;
 use App\Models\Address;
 use App\Api\RequestOk;
 use App\Models\AddressUser;
-use App\Http\Requests\Api\UpdateAddressRequest;
+use App\Http\Requests\Api\Address\UpdateAddressRequest;
 
 class AddressController extends Controller
 {

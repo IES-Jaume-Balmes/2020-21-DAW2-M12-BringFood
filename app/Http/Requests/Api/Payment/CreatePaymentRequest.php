@@ -1,15 +1,15 @@
 <?php
 
-namespace App\Http\Requests\Api;
+namespace App\Http\Requests\Api\Payment;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Validation\ValidationException;
 use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Http\JsonResponse;
-use App\Enums\Via;
+use App\Enums\PaymentMethod;
 
-class CreateAddressRequest extends FormRequest
+class CreatePaymentRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -29,22 +29,19 @@ class CreateAddressRequest extends FormRequest
     public function rules()
     {
         return [
-            'via'=> 'required|enum_value:' . Via::class,
-            'name' => 'required|min:1|max:40',
-            'number' => 'digits_between:1,4',
-            'floor' => 'digits_between:1,2',
-            'door' => 'digits_between:1,2',
-            //'stair' => 'required|min:3|max:3',
-            'zip_code'=>'digits_between:5,5',
-            'user_id'=>'required'
+            'user_id' => 'required|exists:users,id',
+            'method' => 'required|enum_value:' . PaymentMethod::class,
+            'card_holder' => 'required',
+            'number' => 'required',
+            'date_expiry' => 'required',
+            'cvc' => 'required',
         ];
     }
 
     public function messages()
     {
-        return ['via.required' => 'Este campo es obligatorio',
-                'name.required' => 'Este campo es obligatorio',
-            ];
+        return ['user_id.exists' => 'Not an existing ID',
+        ];
     }
 
     protected function failedValidation(Validator $validator)

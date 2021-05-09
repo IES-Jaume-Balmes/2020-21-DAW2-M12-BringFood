@@ -4,10 +4,10 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Http\Requests\Api\CreateRoleRequest;
+use App\Http\Requests\Api\Role\CreateRoleRequest;
 use App\Models\Role;
 use App\Api\RequestOk;
-use App\Http\Requests\Api\UpdateRoleRequest;
+use App\Http\Requests\Api\Role\UpdateRoleRequest;
 
 class RoleController extends Controller
 {
@@ -46,7 +46,6 @@ class RoleController extends Controller
     public function show(Role $role)
     {
         return (new RequestOk($role))->show();
-
     }
 
     /**

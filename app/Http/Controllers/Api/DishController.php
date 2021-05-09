@@ -4,12 +4,12 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Http\Requests\Api\CreateFoodRequest;
-use App\Models\Food;
+use App\Http\Requests\Api\Dish\CreateDishRequest;
+use App\Models\Dish;
 use App\Api\RequestOk;
-use App\Http\Requests\Api\UpdateFoodRequest;
+use App\Http\Requests\Api\Dish\UpdateDishRequest;
 
-class FoodController extends Controller
+class DishController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -18,8 +18,8 @@ class FoodController extends Controller
      */
     public function index()
     {
-        $foods=Food::all();
-        return (new RequestOk($foods))->show();
+        $dishes=Dish::all();
+        return (new RequestOk($dishes))->show();
     }
 
     /**
@@ -28,58 +28,58 @@ class FoodController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(CreateFoodRequest $request)
+    public function store(CreateDishRequest $request)
     {
-        $food=Food::create([
+        $dish=Dish::create([
             'order_id' => $request->order_id,
             'name' => $request->name,
             'detail' => $request->detail,
             'img_url' => $request->img_url,
             'price' => $request->price,
         ]);
-        return (new RequestOk($food))->store();
+        return (new RequestOk($dish))->store();
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Food  $food
+     * @param  \App\Models\Dish  $dish
      * @return \Illuminate\Http\Response
      */
-    public function show(Food $food)
+    public function show(Dish $dish)
     {
-        return (new RequestOk($food))->show();
+        return (new RequestOk($dish))->show();
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Food  $food
+     * @param  \App\Models\Dish  $dish
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Food $food)
+    public function update(Request $request, Dish $dish)
     {
-        $food->update([
+        $dish->update([
             'id' => $request->id,
             'name' => $request->name,
             'detail' => $request->detail,
             'img_url' => $request->img_url,
             'price' => $request->price,
         ]);
-        return (new RequestOk($food))->update();
+        return (new RequestOk($dish))->update();
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Food  $food
+     * @param  \App\Models\Dish  $dish
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Food $food)
+    public function destroy(Dish $dish)
     {
-        /*$food=Food::find($id);
-        $food->delete();
-        return (new RequestOk($food))->delete();*/
+        /*$dish=Dish::find($id);
+        $dish->delete();
+        return (new RequestOk($dish))->delete();*/
     }
 }

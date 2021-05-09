@@ -1,15 +1,14 @@
 <?php
 
-namespace App\Http\Requests\Api;
+namespace App\Http\Requests\Api\Dish;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Validation\ValidationException;
 use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Http\JsonResponse;
-use App\Enums\RoleType;
 
-class CreateRoleRequest extends FormRequest
+class CreateDishRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -29,21 +28,18 @@ class CreateRoleRequest extends FormRequest
     public function rules()
     {
         return [
-            'type'=> 'required|unique:roles|enum_value:' . RoleType::class,
-            //'type' => 'required|enum_key:' . RoleType::class,
-            //'type' => 'required|enum:' . RoleType::class,
-            'description'=>['required','max:400'],
+            'order_id' => 'required|exists:orders,id',
+            'name' => 'required',
+            'detail' => 'required',
+            'img_url' => 'required',
+            'price' => 'required|numeric|min:1',
         ];
     }
 
     public function messages()
     {
-        return ['type.required' => 'Este campo es obligatorio',
-                //'type.enum_value:' => 'Tipo de rol entre estas opciones: ',
-                //'type.enum_key:' => 'Tipo de rol entre estas opciones: ',
-                //'type.enum:' => 'Tipo de rol entre estas opciones: ',
-                'description.required' => 'Este campo es obligatorio',
-                'description.max' => 'La descripcion no puede superar los 400 caracteres'];
+        return ['order_id.exists' => 'Not an existing ID',
+        ];
     }
 
     protected function failedValidation(Validator $validator)

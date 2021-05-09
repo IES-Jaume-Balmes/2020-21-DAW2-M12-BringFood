@@ -5,12 +5,10 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Food extends Model
+class Dish extends Model
 {
     use HasFactory;
-
-    protected $table = 'foods';
-
+    
     /**
      * The attributes that are mass assignable.
      *

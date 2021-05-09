@@ -1,14 +1,10 @@
 <?php
 
-namespace App\Http\Requests\Api;
+namespace App\Http\Requests\Api\Payment;
 
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Contracts\Validation\Validator;
-use Illuminate\Validation\ValidationException;
-use Illuminate\Http\Exceptions\HttpResponseException;
-use Illuminate\Http\JsonResponse;
 
-class UpdateOrderRequest extends FormRequest
+class UpdatePaymentRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -28,17 +24,11 @@ class UpdateOrderRequest extends FormRequest
     public function rules()
     {
         return [
-            //'user_id' => 'required|exists:users,id',
-            'total_price' => 'required|numeric|min:1',
-        ];
-    }
-
-    public function messages()
-    {
-        return [//'user_id.exists' => 'Not an existing ID',
-            'total_price.required' => 'Este valor es requerido',
-            'total_price.numeric' => 'Ha de ser un número',
-            'total_price.min' => 'Debe ser mayor o igual a 1',
+            'method' => 'required|enum_value:' . PaymentMethod::class,
+            'card_holder' => 'required',
+            'number' => 'required',
+            'date_expiry' => 'required',
+            'cvc' => 'required',
         ];
     }
 
@@ -49,5 +39,4 @@ class UpdateOrderRequest extends FormRequest
             response()->json(['errors' => $errors, 'status'=>422], JsonResponse::HTTP_UNPROCESSABLE_ENTITY)
         );
     }
-
 }

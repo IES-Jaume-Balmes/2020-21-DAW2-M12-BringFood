@@ -4,10 +4,10 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Http\Requests\Api\CreateOrderRequest;
+use App\Http\Requests\Api\Order\CreateOrderRequest;
 use App\Models\Order;
 use App\Api\RequestOk;
-use App\Http\Requests\Api\UpdateOrderRequest;
+use App\Http\Requests\Api\Order\UpdateOrderRequest;
 use Carbon;
 
 class OrderController extends Controller
@@ -75,8 +75,12 @@ class OrderController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Order $order)
     {
-        
+        if($order==null){
+            return (new RequestOk($order))->notFoundResource();
+        }
+        $order->delete();
+        return (new RequestOk($order))->delete();
     }
 }

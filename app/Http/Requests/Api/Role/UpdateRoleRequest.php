@@ -1,15 +1,14 @@
 <?php
 
-namespace App\Http\Requests\Api;
+namespace App\Http\Requests\Api\Role;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Validation\ValidationException;
 use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Http\JsonResponse;
-use App\Enums\Via;
 
-class UpdateAddressRequest extends FormRequest
+class UpdateRoleRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -29,21 +28,14 @@ class UpdateAddressRequest extends FormRequest
     public function rules()
     {
         return [
-            'via'=> 'required|enum_value:' . Via::class,
-            'name' => 'required|min:1|max:40',
-            'number' => 'digits_between:1,4',
-            'floor' => 'digits_between:1,2',
-            'door' => 'digits_between:1,2',
-            //'stair' => 'required|min:3|max:3',
-            'zip_code'=>'digits_between:5,5',
+            'description'=>['required','max:400'],
         ];
     }
 
     public function messages()
     {
-        return ['via.required' => 'Este campo es obligatorio',
-                'name.required' => 'Este campo es obligatorio',
-            ];
+        return ['description.required' => 'Este campo es obligatorio',
+                'description.max' => 'La descripcion no puede superar los 400 caracteres'];
     }
 
     protected function failedValidation(Validator $validator)

@@ -28,11 +28,11 @@ Route::group(['middleware' => [], 'prefix' => 'v1'], function () {
     //Route::post('/auth/refresh', 'App\Http\Controllers\TokensController@refreshToken');
     //Route::get('/auth/logout', 'App\Http\Controllers\TokensController@logout');
 
-    Route::post('/food/save','App\Http\Controllers\Api\FoodController@store');
-    Route::get('/foods','App\Http\Controllers\Api\FoodController@index');
-    Route::get('/food/{food}','App\Http\Controllers\Api\FoodController@show');
-    Route::put('/food/{food}','App\Http\Controllers\Api\FoodController@update');
-    Route::delete('/food/{food}','App\Http\Controllers\Api\FoodController@destroy');
+    Route::post('/dish/save','App\Http\Controllers\Api\DishController@store');
+    Route::get('/dishes','App\Http\Controllers\Api\DishController@index');
+    Route::get('/dish/{dish}','App\Http\Controllers\Api\DishController@show');
+    Route::put('/dish/{dish}','App\Http\Controllers\Api\DishController@update');
+    Route::delete('/dish/{dish}','App\Http\Controllers\Api\DishController@destroy');
 
     Route::post('/order/save','App\Http\Controllers\Api\OrderController@store');
     Route::get('/orders','App\Http\Controllers\Api\OrderController@index');

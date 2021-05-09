@@ -4,11 +4,11 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Http\Requests\Api\CreateUserRequest;
+use App\Http\Requests\Api\User\CreateUserRequest;
 use App\Models\User;
 use App\Api\RequestOk;
 use Illuminate\Support\Facades\Hash;
-use App\Http\Requests\Api\UpdateUserRequest;
+use App\Http\Requests\Api\User\UpdateUserRequest;
 use App\Models\AddressUser;
 
 class UserController extends Controller

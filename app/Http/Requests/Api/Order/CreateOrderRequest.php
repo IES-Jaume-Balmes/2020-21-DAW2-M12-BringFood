@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests\Api;
+namespace App\Http\Requests\Api\Order;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Contracts\Validation\Validator;
@@ -8,7 +8,7 @@ use Illuminate\Validation\ValidationException;
 use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Http\JsonResponse;
 
-class UpdateFoodRequest extends FormRequest
+class CreateOrderRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -28,10 +28,14 @@ class UpdateFoodRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required',
-            'detail' => 'required',
-            'img_url' => 'required',
-            'price' => 'required|numeric|min:1',
+            'user_id' => 'required|exists:users,id',
+            'total_price' => 'required|numeric|min:1',
+        ];
+    }
+
+    public function messages()
+    {
+        return ['user_id.exists' => 'Not an existing ID',
         ];
     }
 

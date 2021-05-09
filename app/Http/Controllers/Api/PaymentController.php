@@ -5,6 +5,9 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Payment;
+use App\Http\Requests\Api\Payment\CreatePaymentRequest;
+use App\Http\Requests\Api\Payment\UpdatePaymentRequest;
+use App\Api\RequestOk;
 
 class PaymentController extends Controller
 {
@@ -25,9 +28,17 @@ class PaymentController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CreatePaymentRequest $request)
     {
-        
+        $payment=Payment::create([
+            'user_id' => $request->user_id,
+            'method' => $request->method,
+            'card_holder' => $request->card_holder,
+            'number' => $request->number,
+            'date_expiry' => $request->date_expiry,
+            'cvc' => $request->cvc,
+        ]);
+        return (new RequestOk($payment))->store();
     }
 
     /**
@@ -36,9 +47,9 @@ class PaymentController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Payment $payment)
     {
-        //
+        return (new RequestOk($payment))->show();
     }
 
     /**
@@ -48,9 +59,16 @@ class PaymentController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UpdatePaymentRequest $request, Payment $payment)
     {
-        //
+        $payment->update([
+            'method' => $request->method,
+            'card_holder' => $request->card_holder,
+            'number' => $request->number,
+            'date_expiry' => $request->date_expiry,
+            'cvc' => $request->cvc,
+        ]);
+        return (new RequestOk($payment))->update();
     }
 
     /**

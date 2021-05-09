@@ -16,6 +16,10 @@ class CreateDishesTable extends Migration
         Schema::create('dishes', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
+            $table->string('name');
+            $table->string('detail');
+            $table->string('img_url');
+            $table->float('price',6,2);
         });
     }
 
