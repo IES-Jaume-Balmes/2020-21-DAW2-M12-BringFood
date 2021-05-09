@@ -68,11 +68,10 @@ class AddressController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateAddressRequest $request, $id)
+    public function update(UpdateAddressRequest $request, Address $address)
     {
-        $address=Address::find($id);
         $address->update([
-            'id' => $id,
+            'id' => $request->id,
             'via' => $request->via,
             'name' => $request->name,
             'number' => $request->number,

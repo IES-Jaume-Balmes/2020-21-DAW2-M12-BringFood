@@ -44,9 +44,8 @@ class OrderController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Order $order)
     {
-        $order=Order::find($id);
         return (new RequestOk($order))->show();
     }
 
@@ -57,11 +56,11 @@ class OrderController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateOrderRequest $request, $id)
+    public function update(UpdateOrderRequest $request, Order $order)
     {
-        $order=Order::find($id);
+        //$order=Order::find($id);
         $order->update([
-            'id' => $id,
+            'id' => $request->id,
             'total_price' => $request->total_price,
             'date_request' => Carbon\Carbon::now(),
             'date_send' => $request->date_send,
@@ -78,6 +77,6 @@ class OrderController extends Controller
      */
     public function destroy($id)
     {
-        //
+        
     }
 }

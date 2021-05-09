@@ -3,9 +3,11 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Models\Food;
 use Illuminate\Http\Request;
+use App\Http\Requests\Api\CreateFoodRequest;
+use App\Models\Food;
 use App\Api\RequestOk;
+use App\Http\Requests\Api\UpdateFoodRequest;
 
 class FoodController extends Controller
 {
@@ -26,7 +28,7 @@ class FoodController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CreateFoodRequest $request)
     {
         $food=Food::create([
             'order_id' => $request->order_id,
@@ -46,7 +48,6 @@ class FoodController extends Controller
      */
     public function show(Food $food)
     {
-        $food=Food::find($id);
         return (new RequestOk($food))->show();
     }
 
@@ -59,9 +60,8 @@ class FoodController extends Controller
      */
     public function update(Request $request, Food $food)
     {
-        $food=Food::find($id);
         $food->update([
-            'id' => $id,
+            'id' => $request->id,
             'name' => $request->name,
             'detail' => $request->detail,
             'img_url' => $request->img_url,
@@ -78,6 +78,8 @@ class FoodController extends Controller
      */
     public function destroy(Food $food)
     {
-        //
+        /*$food=Food::find($id);
+        $food->delete();
+        return (new RequestOk($food))->delete();*/
     }
 }

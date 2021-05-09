@@ -4,12 +4,9 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Http\Requests\Api\CreateRoleRequest;
-use App\Models\Role;
-use App\Api\RequestOk;
-use App\Http\Requests\Api\UpdateRoleRequest;
+use App\Models\Payment;
 
-class RoleController extends Controller
+class PaymentController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -18,8 +15,8 @@ class RoleController extends Controller
      */
     public function index()
     {
-        $roles=Role::all();
-        return (new RequestOk($roles))->show();
+        $payments=Payment::all();
+        return (new RequestOk($payments))->show();
     }
 
     /**
@@ -28,13 +25,9 @@ class RoleController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(CreateRoleRequest $request)
+    public function store(Request $request)
     {
-        $role=Role::create([
-            'type' => $request->type,
-            'description' => $request->description,
-        ]);
-        return (new RequestOk($role))->store();
+        
     }
 
     /**
@@ -43,10 +36,9 @@ class RoleController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Role $role)
+    public function show($id)
     {
-        return (new RequestOk($role))->show();
-
+        //
     }
 
     /**
@@ -56,14 +48,9 @@ class RoleController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateRoleRequest $request, Role $role)
+    public function update(Request $request, $id)
     {
-        $role->update([
-            'id' => $request->id,
-            //'type' => $request->type, the type must not be updated
-            'description' => $request->description,
-        ]);
-        return (new RequestOk($user))->update();
+        //
     }
 
     /**
@@ -74,6 +61,6 @@ class RoleController extends Controller
      */
     public function destroy($id)
     {
-        //No posible
+        //
     }
 }

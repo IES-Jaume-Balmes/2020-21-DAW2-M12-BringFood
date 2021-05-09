@@ -5,27 +5,24 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Food extends Model
+class Payment extends Model
 {
     use HasFactory;
-
-    protected $table = 'foods';
-
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
     protected $fillable = [
-        'order_id',
-        'name',
-        'detail',
-        'img_url',
-        'price',
+        'method',
+        'card_holder',
+        'number',
+        'date_expiry',
+        'cvc'
     ];
 
-    public function order()
+    public function user()
     {
-        return $this->belongsTo(Order::class);
+        return $this->belongsTo(User::class);
     }
 }

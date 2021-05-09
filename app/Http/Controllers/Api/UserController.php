@@ -52,9 +52,8 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(User $user)
     {
-        $user=User::find($id);
         return (new RequestOk($user))->show();
     }
 
@@ -65,13 +64,12 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateUserRequest $request, $id)
+    public function update(UpdateUserRequest $request, User $user)
     {
-        $user=User::find($id);
         $user->update([
             //'id' => $id,
             //'role_id' => $request->role_id,
-            'id' => $id,
+            'id' => $request->id,
             'name' => $request->name,
             'email' => $request->email,
             //'password' => Hash::make($request->password),
@@ -85,11 +83,31 @@ class UserController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Remove the specified resource from storage. If the id not exists return 404 not found like html
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+    public function destroy(User $user)
+    {   
+        $addressUser=AddressUser::where('user_id',$user->id)->get();
+        if(count($addressUser)>0){
+            return (new RequestOk($addressUser))->noPossibleDelete();
+        }
+        //$user=User::find($id);
+        if($user==null){
+            return (new RequestOk($user))->notFoundResource();
+        }
+        $user->delete();
+        return (new RequestOk($user))->delete();
+    }
+    /**
+     * Remove the specified resource from storage. If the id not exists return 404 like api
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    /*
     public function destroy($id)
     {   
         $addressUser=AddressUser::where('user_id',$id)->get();
@@ -102,5 +120,5 @@ class UserController extends Controller
         }
         $user->delete();
         return (new RequestOk($user))->delete();
-    }
+    }*/
 }

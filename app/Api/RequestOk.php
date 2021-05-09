@@ -66,7 +66,7 @@ class RequestOk
                 'errors' => ['no possible delete, have relations']
             ],
             'data' => $this->object
-        ],200);//200 or 204
+        ],409);//https://stackoverflow.com/questions/25122472/rest-http-status-code-if-delete-impossible
     }
 
     public function notFoundResource()

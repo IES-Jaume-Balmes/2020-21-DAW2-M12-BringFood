@@ -28,6 +28,12 @@ Route::group(['middleware' => [], 'prefix' => 'v1'], function () {
     //Route::post('/auth/refresh', 'App\Http\Controllers\TokensController@refreshToken');
     //Route::get('/auth/logout', 'App\Http\Controllers\TokensController@logout');
 
+    Route::post('/food/save','App\Http\Controllers\Api\FoodController@store');
+    Route::get('/foods','App\Http\Controllers\Api\FoodController@index');
+    Route::get('/food/{food}','App\Http\Controllers\Api\FoodController@show');
+    Route::put('/food/{food}','App\Http\Controllers\Api\FoodController@update');
+    Route::delete('/food/{food}','App\Http\Controllers\Api\FoodController@destroy');
+
     Route::post('/order/save','App\Http\Controllers\Api\OrderController@store');
     Route::get('/orders','App\Http\Controllers\Api\OrderController@index');
     Route::get('/order/{order}','App\Http\Controllers\Api\OrderController@show');
