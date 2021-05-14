@@ -9,6 +9,7 @@ use App\Models\Order;
 use App\Api\RequestOk;
 use App\Http\Requests\Api\Order\UpdateOrderRequest;
 use Carbon;
+use App\Models\DishOrder;
 
 class OrderController extends Controller
 {
@@ -34,6 +35,10 @@ class OrderController extends Controller
         $order=Order::create([
             'user_id' => $request->user_id,
             'total_price' => $request->total_price,
+        ]);
+        $dishOrder=DishOrder::create([
+            'dish_id' => $request->dish_id,
+            'order_id' => $order->id,
         ]);
         return (new RequestOk($order))->store();
     }

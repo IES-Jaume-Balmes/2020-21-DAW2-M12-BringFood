@@ -31,7 +31,7 @@ class DishController extends Controller
     public function store(CreateDishRequest $request)
     {
         $dish=Dish::create([
-            'order_id' => $request->order_id,
+            'user_id' => $request->user_id,
             'name' => $request->name,
             'detail' => $request->detail,
             'img_url' => $request->img_url,

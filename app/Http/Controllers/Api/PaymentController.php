@@ -31,7 +31,7 @@ class PaymentController extends Controller
     public function store(CreatePaymentRequest $request)
     {
         $payment=Payment::create([
-            'user_id' => $request->user_id,
+            'order_id' => $request->order_id,
             'method' => $request->method,
             'card_holder' => $request->card_holder,
             'number' => $request->number,

@@ -19,7 +19,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::group(['middleware' => ['jwt.auth'], 'prefix' => 'v1'], function () {
-    Route::post('/user/save','App\Http\Controllers\UserController@saveUser');
+   //Route::post('/user/save','App\Http\Controllers\UserController@saveUser');
 });
 
 Route::group(['middleware' => [], 'prefix' => 'v1'], function () {
@@ -27,6 +27,12 @@ Route::group(['middleware' => [], 'prefix' => 'v1'], function () {
     Route::post('/auth/login', 'App\Http\Controllers\TokensController@login');
     //Route::post('/auth/refresh', 'App\Http\Controllers\TokensController@refreshToken');
     //Route::get('/auth/logout', 'App\Http\Controllers\TokensController@logout');
+
+    Route::post('/payment/save','App\Http\Controllers\Api\PaymentController@store');
+    Route::get('/paymentes','App\Http\Controllers\Api\PaymentController@index');
+    Route::get('/payment/{payment}','App\Http\Controllers\Api\PaymentController@show');
+    Route::put('/payment/{payment}','App\Http\Controllers\Api\PaymentController@update');
+    Route::delete('/payment/{payment}','App\Http\Controllers\Api\PaymentController@destroy');
 
     Route::post('/dish/save','App\Http\Controllers\Api\DishController@store');
     Route::get('/dishes','App\Http\Controllers\Api\DishController@index');

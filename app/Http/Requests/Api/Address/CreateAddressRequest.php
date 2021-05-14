@@ -36,7 +36,6 @@ class CreateAddressRequest extends FormRequest
             'door' => 'digits_between:1,2',
             //'stair' => 'required|min:3|max:3',
             'zip_code'=>'digits_between:5,5',
-            'user_id'=>'required'
         ];
     }
 

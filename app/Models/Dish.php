@@ -15,15 +15,20 @@ class Dish extends Model
      * @var array
      */
     protected $fillable = [
-        'order_id',
+        'user_id',
         'name',
         'detail',
         'img_url',
         'price',
     ];
 
-    public function order()
+    public function orders()
     {
-        return $this->belongsTo(Order::class);
+        return $this->belongsToMany(Order::class);
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
     }
 }

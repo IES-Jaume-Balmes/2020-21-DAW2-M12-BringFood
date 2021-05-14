@@ -7,6 +7,7 @@ use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Validation\ValidationException;
 use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Facades\Auth;
 
 class CreateDishRequest extends FormRequest
 {
@@ -17,6 +18,11 @@ class CreateDishRequest extends FormRequest
      */
     public function authorize()
     {
+        /*$user = Auth::user();
+        if($user->role_id==2){
+            return true;
+        }
+        return false;*/
         return true;
     }
 
@@ -28,7 +34,7 @@ class CreateDishRequest extends FormRequest
     public function rules()
     {
         return [
-            'order_id' => 'required|exists:orders,id',
+            'user_id' => 'required|exists:users,id',
             'name' => 'required',
             'detail' => 'required',
             'img_url' => 'required',
@@ -38,7 +44,7 @@ class CreateDishRequest extends FormRequest
 
     public function messages()
     {
-        return ['order_id.exists' => 'Not an existing ID',
+        return ['user_id.exists' => 'Not an existing ID',
         ];
     }
 

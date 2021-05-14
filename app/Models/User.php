@@ -47,12 +47,6 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function addresses()
-    {
-        //return $this->belongsToMany(Address::class,'user_address');
-        return $this->belongsToMany(Address::class);
-    }
-
     public function role()
     {
         return $this->belongsTo(Role::class);
@@ -63,8 +57,8 @@ class User extends Authenticatable
         return $this->hasMany(Order::class);
     }
 
-    public function payments()
+    public function dishes()
     {
-        return $this->hasMany(Payment::class);
+        return $this->hasMany(Dish::class);
     }
 }

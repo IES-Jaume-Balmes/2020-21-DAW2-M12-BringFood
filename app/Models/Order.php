@@ -16,10 +16,9 @@ class Order extends Model
      */
     protected $fillable = [
         'user_id',
-        'date_request',
-        'date_send',
-        'date_deliver',
-        'total_price'
+        'address_id',
+        'total_price',
+        'finished',
     ];
 
     public function user()
@@ -29,7 +28,17 @@ class Order extends Model
 
     public function dishes()
     {
-        return $this->hasMany(Dish::class);
+        return $this->belongsToMany(Dish::class);
+    }
+
+    public function payment()
+    {
+        return $this->hasOne(Payment::class);
+    }
+
+    public function address()
+    {
+        return $this->belongsTo(Address::class);
     }
 
 }

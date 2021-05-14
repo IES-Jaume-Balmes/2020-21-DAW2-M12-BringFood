@@ -7,7 +7,6 @@ use Illuminate\Http\Request;
 use App\Http\Requests\Api\Address\CreateAddressRequest;
 use App\Models\Address;
 use App\Api\RequestOk;
-use App\Models\AddressUser;
 use App\Http\Requests\Api\Address\UpdateAddressRequest;
 
 class AddressController extends Controller
@@ -39,11 +38,6 @@ class AddressController extends Controller
             'door' => $request->door,
             'stair' => $request->stair,
             'zip_code' => $request->zip_code,
-        ]);
-        
-        $address_user=AddressUser::create([
-            'address_id' => $address->id,
-            'user_id' => $request->user_id,
         ]);
         
         return (new RequestOk($address))->store();

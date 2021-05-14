@@ -25,8 +25,9 @@ class Address extends Model
         //'user_id',
     ];
 
-    public function users()
-	{
-   		return $this->belongsToMany(User::class);
-	}
+    public function orders()
+    {
+        return $this->hasMany(Order::class);
+    }
+
 }

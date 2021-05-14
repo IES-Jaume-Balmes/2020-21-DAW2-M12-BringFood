@@ -14,7 +14,7 @@ class Payment extends Model
      * @var array
      */
     protected $fillable = [
-        'user_id',
+        'order_id',
         'method',
         'card_holder',
         'number',
@@ -22,8 +22,8 @@ class Payment extends Model
         'cvc'
     ];
 
-    public function user()
+    public function order()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(Order::class);
     }
 }

@@ -29,18 +29,18 @@ class CreatePaymentRequest extends FormRequest
     public function rules()
     {
         return [
-            'user_id' => 'required|exists:users,id',
+            'order_id' => 'required|exists:orders,id',
             'method' => 'required|enum_value:' . PaymentMethod::class,
             'card_holder' => 'required',
             'number' => 'required',
             'date_expiry' => 'required',
-            'cvc' => 'required',
+            'cvc' => 'required',//cvv in other pages
         ];
     }
 
     public function messages()
     {
-        return ['user_id.exists' => 'Not an existing ID',
+        return ['order_id.exists' => 'Not an existing ID',
         ];
     }
 
