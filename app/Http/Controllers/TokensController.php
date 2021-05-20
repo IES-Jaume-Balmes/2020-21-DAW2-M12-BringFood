@@ -3,6 +3,11 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Validator;
+use Tymon\JWTAuth\Exceptions\JWTException;
+use Tymon\JWTAuth\Exceptions\TokenBlacklistedException;
+use Tymon\JWTAuth\Exceptions\TokenExpiredException;
+use Tymon\JWTAuth\Facades\JWTAuth;
 
 class TokensController extends Controller
 {
@@ -43,9 +48,15 @@ class TokensController extends Controller
             return response()->json([
                 'meta' => [
                     'success' => false,
-                    'errors' => ['Password incorrect for: '.$request->username]
+                    'errors' => ['Password incorrect for: '.$request->email]
                 ]
             ], 401);
         }
+        return response()->json([
+                'meta' => [
+                    'success' => false,
+                    'errors' => ['Password incorrect for: '.$request->email]
+                ]
+            ], 401);
     }
 }

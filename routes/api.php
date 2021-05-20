@@ -19,14 +19,15 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::group(['middleware' => ['jwt.auth'], 'prefix' => 'v1'], function () {
-   //Route::post('/user/save','App\Http\Controllers\UserController@saveUser');
+    Route::get('/auth/logout', 'App\Http\Controllers\Api\TokensController@logout');
 });
 
 Route::group(['middleware' => [], 'prefix' => 'v1'], function () {
     // Auth
-    Route::post('/auth/login', 'App\Http\Controllers\TokensController@login');
+    Route::post('/auth/login', 'App\Http\Controllers\Api\TokensController@login');
     //Route::post('/auth/refresh', 'App\Http\Controllers\TokensController@refreshToken');
     //Route::get('/auth/logout', 'App\Http\Controllers\TokensController@logout');
+    Route::post('/auth/token', 'App\Http\Controllers\Api\TokensController@isToken');
 
     Route::post('/payment/save','App\Http\Controllers\Api\PaymentController@store');
     Route::get('/paymentes','App\Http\Controllers\Api\PaymentController@index');

@@ -5,14 +5,16 @@ namespace App\Api;
 class RequestOk
 {
 	private $object;
+    private $token;
     /**
      * Class constructor.
      *
      * @return void
      */
-    public function __construct($object)
+    public function __construct($object=null,$token=null)
     {
         $this->object=$object;
+        $this->token=$token;
     }
 
     public function store()
@@ -58,25 +60,34 @@ class RequestOk
         ],200);//200 or 204
     }
 
-    public function noPossibleDelete()
+    public function loginSuccessful()
     {
-    	return response()->json([
+        return response()->json([
             'meta' => [
-                'success' => false,
-                'errors' => ['no possible delete, have relations']
+                'success' => true,
+                'errors' => []
             ],
-            'data' => $this->object
-        ],409);//https://stackoverflow.com/questions/25122472/rest-http-status-code-if-delete-impossible
+            'data' => [
+                'user' => $this->object,
+                'token' => $this->token,
+            ]
+        ],200);
     }
 
-    public function notFoundResource()
+    public function logoutSuccessful()
     {
-    	return response()->json([
-            'meta' => [
-                'success' => false,
-                'errors' => ['not found resource']
-            ],
-            //'data' => $this->object
-        ],404);
+        return response()->json([
+            'success' => true, 
+            'message' => "You have successfully logged out."
+        ], 200);
     }
+
+    public function isToken()
+    {
+        //$token = JWTAuth::getToken();
+        return response()->json([
+            'data' => true
+        ], 200);
+    }
+
 }

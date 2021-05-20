@@ -10,6 +10,7 @@ use App\Api\RequestOk;
 use Illuminate\Support\Facades\Hash;
 use App\Http\Requests\Api\User\UpdateUserRequest;
 use App\Models\AddressUser;
+use App\Api\RequestKo;
 
 class UserController extends Controller
 {
@@ -92,14 +93,14 @@ class UserController extends Controller
     {   
         $addressUser=AddressUser::where('user_id',$user->id)->get();
         if(count($addressUser)>0){
-            return (new RequestOk($addressUser))->noPossibleDelete();
+            return (new RequestKo($addressUser))->noPossibleDelete();
         }
         //$user=User::find($id);
         if($user==null){
-            return (new RequestOk($user))->notFoundResource();
+            return (new RequestKo())->notFoundResource();
         }
         $user->delete();
-        return (new RequestOk($user))->delete();
+        return (new RequestOk())->delete();
     }
     /**
      * Remove the specified resource from storage. If the id not exists return 404 like api

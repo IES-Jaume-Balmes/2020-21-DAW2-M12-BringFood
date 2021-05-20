@@ -8,6 +8,7 @@ use App\Models\Payment;
 use App\Http\Requests\Api\Payment\CreatePaymentRequest;
 use App\Http\Requests\Api\Payment\UpdatePaymentRequest;
 use App\Api\RequestOk;
+use App\Api\RequestKo;
 
 class PaymentController extends Controller
 {

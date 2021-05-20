@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests\Api\Order\CreateOrderRequest;
 use App\Models\Order;
 use App\Api\RequestOk;
+use App\Api\RequestKo;
 use App\Http\Requests\Api\Order\UpdateOrderRequest;
 use Carbon;
 use App\Models\DishOrder;
@@ -83,9 +84,9 @@ class OrderController extends Controller
     public function destroy(Order $order)
     {
         if($order==null){
-            return (new RequestOk($order))->notFoundResource();
+            return (new RequestKo())->notFoundResource();
         }
         $order->delete();
-        return (new RequestOk($order))->delete();
+        return (new RequestOk())->delete();
     }
 }

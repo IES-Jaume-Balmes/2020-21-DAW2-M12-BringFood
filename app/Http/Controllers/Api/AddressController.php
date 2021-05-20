@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests\Api\Address\CreateAddressRequest;
 use App\Models\Address;
 use App\Api\RequestOk;
+use App\Api\RequestKo;
 use App\Http\Requests\Api\Address\UpdateAddressRequest;
 
 class AddressController extends Controller
@@ -87,14 +88,14 @@ class AddressController extends Controller
     {
         $addressUser=AddressUser::where('address_id',$id)->get();
         if(count($addressUser)>0){
-            return (new RequestOk($addressUser))->noPossibleDelete();
+            return (new RequestKo($addressUser))->noPossibleDelete();
         }
         $address=Address::find($id);
         if($address==null){
-            return (new RequestOk($address))->notFoundResource();
+            return (new RequestKo())->notFoundResource();
         }
         $adress->delete();
-        return (new RequestOk($address))->delete();
+        return (new RequestOk())->delete();
     }
 
 
