@@ -1,17 +1,27 @@
 <nav class="navbar navbar-expand-sm navbar-light bg-light">
   <div class="container-fluid">
-    <a class="navbar-brand" href="#">{{logo}}</a>
+    <a class="navbar-brand" routerLink="/">{{logo}}</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll" aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse flex-row-reverse" id="navbarScroll">
-      <form class="d-flex">
+    <form class="d-flex">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-          <li class="nav-item">
-            <a class="nav-link active" aria-current="page" routerLink="/user/login">{{login}}</a>
+          <!--<li class="nav-item" *ngIf="router.url === '/user/login' || router.url === '/user/register' || router.url === '/'">-->
+          <li class="nav-item" *ngIf="isVisibleNotAuth()">
+            <a class="nav-link active" ng-class="{'active': clicked}" aria-current="page" routerLink="/user/login">{{login}}</a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" routerLink="/user/register">{{register}}</a>
+          <li class="nav-item" *ngIf="isVisibleNotAuth()">
+            <a class="nav-link" ng-class="{'active': clicked}" routerLink="/user/register">{{register}}</a>
+          </li>
+          <li class="nav-item" *ngIf="isVisibleRegister()">
+            <a class="nav-link active" aria-current="page" routerLink="/user/register">{{register}}</a>
+          </li>
+          <li class="nav-item" *ngIf="isVisibleregisterDish()">
+            <a class="nav-link active" aria-current="page" routerLink="/dish/register">{{registerDish}}</a>
+          </li>
+          <li class="nav-item" *ngIf="isVisibleAuth()">
+            <a class="nav-link active" aria-current="page" routerLink="/user/login" (click)="logoutUser()">Logout user</a>
           </li>
         </ul>
       </form>

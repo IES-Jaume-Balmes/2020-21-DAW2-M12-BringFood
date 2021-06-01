@@ -40,11 +40,21 @@ class RequestKo
     public function loginFail()
     {
         return response()->json([
+            'errors' => [
+                'password'=>['password incorrect']
+            ],
+            'status'=>401
+        ], 401);
+        /*return response()->json([
+            'errors' => 'password incorrect', 'status'=>401
+        ], 401);*/
+
+        /*return response()->json([
             'meta' => [
                 'success' => false,
                 'errors' => ['Password incorrect for: '.$this->object],
             ]
-        ], 401);
+        ], 401);*/
     }
 
     public function logoutFail()
@@ -60,5 +70,15 @@ class RequestKo
         return response()->json([
             'error' => false
         ], 404);
+    }
+
+    public function invalidDocument()
+    {
+        return response()->json([
+            'errors' => [
+                'document'=>['Document INVALID!!!']
+            ],
+            'status'=>401
+        ], 401);
     }
 }

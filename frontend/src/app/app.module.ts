@@ -10,11 +10,16 @@ import { ProfileComponent } from './user/profile/profile.component';
 import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { AuthGuard } from './auth.guard';
+import { RegisterComponent as DishRegisterComponent } from './dish/register/register.component';
+import { ShowDishesComponent } from './dish/show-dishes/show-dishes.component';
 
 const appRoutes = [
   {path: 'user/login', component: LoginComponent},
-  {path: 'user/profile', component: ProfileComponent},
+  {path: 'user/profile', component: ProfileComponent, canActivate: [AuthGuard]},
   {path: 'user/register', component: RegisterComponent},
+  {path: 'dish/register', component: DishRegisterComponent, canActivate: [AuthGuard]},
+  {path: 'dish/list', component: ShowDishesComponent, canActivate: [AuthGuard]},
  ];
 
 @NgModule({
@@ -23,7 +28,9 @@ const appRoutes = [
     NavbarComponent,
     LoginComponent,
     RegisterComponent,
-    ProfileComponent
+    ProfileComponent,
+    DishRegisterComponent,
+    ShowDishesComponent
   ],
   imports: [
     BrowserModule,

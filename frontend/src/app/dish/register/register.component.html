@@ -1,0 +1,53 @@
+<main>
+	<div class="container">
+		<div class="mt-3 col-12">
+			<img src="https://picsum.photos/200/100" alt="" class="m-auto d-flex">
+		</div>
+		<!--
+		<form class="px-4 py-3" #formRegister="ngForm" (ngSubmit)="onRegister()" enctype="multipart/form-data">-->
+		<form class="px-4 py-3" #formRegister="ngForm" (ngSubmit)="onRegister()" enctype="multipart/form-data">
+			<div class="mb-1 d-none">
+				<label for="user_id" class="form-label">id user</label>
+				<input type="number" [ngClass]="{'is-invalid': userIdErrors.length>0}" class="form-control" id="user_id" name="user_id" placeholder="user_id" [(ngModel)]="dish.user_id">
+			</div>
+			<div *ngFor="let error of userIdErrors" class="invalid-feedback d-block">
+				{{error}}
+			</div>
+			<div class="mb-1">
+				<label for="name" class="form-label">Name</label>
+				<input type="text" [ngClass]="{'is-invalid': nameErrors.length>0}" class="form-control" id="name" name="name" placeholder="name" [(ngModel)]="dish.name">
+			</div>
+			<div *ngFor="let error of nameErrors" class="invalid-feedback d-block">
+				{{error}}
+			</div>
+			<div class="mb-1">
+				<label for="detail" class="form-label">Detail</label>
+				<input type="text" [ngClass]="{'is-invalid': detailErrors.length>0}" class="form-control" id="detail" name="detail" placeholder="detail" [(ngModel)]="dish.detail">
+			</div>
+			<div *ngFor="let error of detailErrors" class="invalid-feedback d-block">
+				{{error}}
+			</div>
+			<div class="mb-3">
+			  <label for="img_url" class="form-label">Subir Imagen</label>
+			  <input class="form-control" type="file" [ngClass]="{'is-invalid': img_urlErrors.length>0}" id="img_url" name="img_url" [(ngModel)]="dish.img_url" (change)="uploadImage($event)">
+			</div>
+			<div *ngFor="let error of img_urlErrors" class="invalid-feedback d-block">
+				{{error}}
+			</div>
+			<div *ngFor="let error of priceErrors" class="invalid-feedback d-block">
+				{{error}}
+			</div>
+			<div class="mb-1">
+				<label for="price" class="form-label">Phone</label>
+				<input type="number" [ngClass]="{'is-invalid': priceErrors!=undefined && priceErrors.length>0}" class="form-control" id="price" name="price" placeholder="price" [(ngModel)]="dish.price">
+			</div>
+			<div *ngFor="let error of priceErrors" class="invalid-feedback d-block">
+				{{error}}
+			</div>
+			<button type="submit" class="btn btn-primary">Guardar</button>
+		</form>
+	</div>
+</main>
+
+
+

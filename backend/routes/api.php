@@ -21,7 +21,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::group(['middleware' => ['jwt.auth'], 'prefix' => 'v1'], function () {
     Route::get('/auth/logout', 'App\Http\Controllers\Api\TokensController@logout');
 
-    Route::post('/user/save','App\Http\Controllers\Api\UserController@store');
+    
     Route::put('/user/{user}','App\Http\Controllers\Api\UserController@update');
     Route::get('/user/{user}','App\Http\Controllers\Api\UserController@show');
     Route::delete('/user/{user}','App\Http\Controllers\Api\UserController@destroy');
@@ -29,6 +29,8 @@ Route::group(['middleware' => ['jwt.auth'], 'prefix' => 'v1'], function () {
 });
 
 Route::group(['middleware' => [], 'prefix' => 'v1'], function () {
+
+    Route::post('/user/save','App\Http\Controllers\Api\UserController@store');
     // Auth
     Route::post('/auth/login', 'App\Http\Controllers\Api\TokensController@login');
     //Route::post('/auth/refresh', 'App\Http\Controllers\TokensController@refreshToken');

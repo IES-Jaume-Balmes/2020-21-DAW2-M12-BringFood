@@ -8,6 +8,7 @@ use App\Http\Requests\Api\Dish\CreateDishRequest;
 use App\Models\Dish;
 use App\Api\RequestOk;
 use App\Http\Requests\Api\Dish\UpdateDishRequest;
+use Carbon\Carbon;
 
 class DishController extends Controller
 {
@@ -28,13 +29,34 @@ class DishController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
+    //CreateDishRequest
     public function store(CreateDishRequest $request)
-    {
+    {   
+        $url_img=null;
+        
+        if($request->hasFile('img_url')){
+            /*
+            $nombre=$request->file('img_url')->getClientOriginalName();
+            $destination='images'.DIRECTORY_SEPARATOR;
+            $request->file('img_url')->move(public_path($ruta),$nombre);
+            $url_img=public_path($ruta).$nombre;*/
+
+            $ruta="C:".DIRECTORY_SEPARATOR."xampp".DIRECTORY_SEPARATOR."htdocs".DIRECTORY_SEPARATOR."bringfood".DIRECTORY_SEPARATOR."frontend".DIRECTORY_SEPARATOR."src".DIRECTORY_SEPARATOR."assets".DIRECTORY_SEPARATOR;
+            $mytime = Carbon::now();
+            $mytimeNew= str_replace(":","",$mytime->toDateTimeString());
+            $nombre=$mytimeNew.'_'.$request->file('img_url')->getClientOriginalName();
+            $request->file('img_url')->move($ruta,$nombre);
+            $url_img=$ruta.$nombre;
+        }else
+        {
+            return response()->json(["message" => "Select image first."]);
+        }
+
         $dish=Dish::create([
             'user_id' => $request->user_id,
             'name' => $request->name,
             'detail' => $request->detail,
-            'img_url' => $request->img_url,
+            'img_url' => $url_img,
             'price' => $request->price,
         ]);
         return (new RequestOk($dish))->store();

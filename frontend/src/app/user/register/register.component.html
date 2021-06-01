@@ -3,51 +3,70 @@
 		<div class="mt-3 col-12">
 			<img src="https://picsum.photos/200/100" alt="" class="m-auto d-flex">
 		</div>
-		<form class="px-4 py-3">
-			<div class="mb-3">
-				<label for="role" class="form-label">Role</label>
-				<select class="form-select" aria-label="Default select example" name="role_id" >
-				  <!--<option selected>Open this select menu</option>-->
-				  <option value="1">Admin</option>
-				  <option value="2">Restaurant</option>
-				  <option value="3" selected="">Client</option>
+		<form class="px-4 py-3" #formRegister="ngForm" (ngSubmit)="onRegister()">
+			<div class="mb-1" *ngIf="isAdmin()">
+				<label for="rol_id" class="form-label">Rol</label>
+				<select class="form-select" aria-label="Default select example" name="rol_id" [(ngModel)]="user.role_id">
+				  <option *ngFor="let role of rolesId" [value]="role.value">{{role.name}}</option>
 				</select>
 			</div>
-			<div class="mb-3">
+			<div class="mb-1">
 				<label for="name" class="form-label">Name</label>
-				<input type="text" class="form-control" id="name" name="name" placeholder="name">
+				<input type="text" [ngClass]="{'is-invalid': nameErrors!=undefined && nameErrors.length>0}" class="form-control" id="name" name="name" placeholder="name" [(ngModel)]="user.name">
 			</div>
-			<div class="mb-3">
+			<div *ngFor="let error of nameErrors" class="invalid-feedback d-block">
+				{{error}}
+			</div>
+			<div class="mb-1">
 				<label for="user" class="form-label">Email address</label>
-				<input type="email" class="form-control" id="email" name="email" placeholder="email@example.com" >
+				<input type="email" [ngClass]="{'is-invalid': emailErrors!=undefined && emailErrors.length>0}" class="form-control" id="email" name="email" placeholder="email@example.com" [(ngModel)]="user.email">
 			</div>
-			<div class="mb-3">
+			<div *ngFor="let error of emailErrors" class="invalid-feedback d-block">
+				{{error}}
+			</div>
+			<div class="mb-1">
 				<label for="password" class="form-label">Password</label>
-				<input type="password" class="form-control" id="password" name="password" placeholder="Password" >
+				<input type="password"  [ngClass]="{'is-invalid': passwordErrors!=undefined && passwordErrors.length>0}" class="form-control" id="password" name="password" placeholder="Password" [(ngModel)]="user.password">
 			</div>
-			<div class="mb-3">
+			<div *ngFor="let error of passwordErrors" class="invalid-feedback d-block">
+				{{error}}
+			</div>
+			<div class="mb-1" *ngIf="isAdmin()">
 				<label for="documentType" class="form-label">Document type</label>
-				<select class="form-select" aria-label="Default select example" name="documentType">
-				  <option value="NIF" selected>NIF</option>
-				  <option value="NIE">NIE</option>
-				  <option value="CIF">CIF</option>
+				<select class="form-select" aria-label="Default select example" name="documentType" [(ngModel)]="user.documentType">
+				  <option *ngFor="let documentType of documentsTypeAuthAdmin" [value]="documentType.value">{{documentType.name}}</option>
 				</select>
 			</div>
-			<div class="mb-3">
+			<div class="mb-1" *ngIf="!isAdmin()">
+				<label for="documentType" class="form-label">Document type</label>
+				<select class="form-select" aria-label="Default select example" name="documentType" [(ngModel)]="user.documentType">
+				  <option *ngFor="let documentType of documentsType" [value]="documentType.value">{{documentType.name}}</option>
+				</select>
+			</div>
+			<div class="mb-1">
 				<label for="document" class="form-label">Document</label>
-				<input type="text" class="form-control" id="document" name="document" placeholder="document">
+				<input type="text" [ngClass]="{'is-invalid': documentErrors!=undefined && documentErrors.length>0}" class="form-control" id="document" name="document" placeholder="document" [(ngModel)]="user.document">
 			</div>
-			<div class="mb-3">
+			<div *ngFor="let error of documentErrors" class="invalid-feedback d-block">
+				{{error}}
+			</div>
+			<div class="mb-1 d-none">
 				<label for="prefix" class="form-label">Prefix</label>
-				<input type="text" class="form-control" id="prefix" name="prefix" placeholder="prefix">
+				<input type="text" class="form-control" id="prefix" name="prefix" placeholder="prefix" [(ngModel)]="user.prefix" readonly>
 			</div>
-			<div class="mb-3">
+			<div class="mb-1">
 				<label for="mobile" class="form-label">Mobile</label>
-				<input type="text" class="form-control" id="mobile" name="mobile" placeholder="mobile">
+				<input type="text" [ngClass]="{'is-invalid': mobileErrors!=undefined && mobileErrors.length>0}" class="form-control" id="mobile" name="mobile" placeholder="mobile" [(ngModel)]="user.mobile">
 			</div>
-			<div class="mb-3">
+			<div *ngFor="let error of mobileErrors" class="invalid-feedback d-block">
+				{{error}}
+			</div>
+			<div class="mb-1">
 				<label for="phone" class="form-label">Phone</label>
-				<input type="text" class="form-control" id="phone" name="phone" placeholder="phone">
+				<input type="text" [ngClass]="{'is-invalid': phoneErrors!=undefined && phoneErrors.length>0}" class="form-control" id="phone" name="phone" placeholder="phone" [(ngModel)]="user.phone">
+			</div>
+			<div *ngFor="let error of phoneErrors" class="invalid-feedback d-block">
+				{{error}}
 			</div>
 			<button type="submit" class="btn btn-primary">Guardar</button>
 		</form>

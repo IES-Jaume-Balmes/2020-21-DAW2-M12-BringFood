@@ -42,20 +42,20 @@ class CreateClientRequest extends FormRequest
 
     public function messages()
     {
-        return ['name.required' => 'Este campo es obligatorio',
+        return ['name.required' => 'El nombre es requerido',
                 'name.max' => 'El nombre no debe pasar de 50 caracteres',
-                'email.required' => 'Este campo es obligatorio',
-                'password.required' => 'Este campo es obligatorio',
-                'password.min' => 'Este campo debe tener minimo 6 caracteres',
-                'document.required' => 'Este campo es obligatorio si el tipo de documento es CIF',
-                'prefix.required' => 'Este campo es obligatorio',
+                'email.required' => 'El email es requerido',
+                'password.required' => 'El password es obligatorio',
+                'password.min' => 'El password debe tener minimo 6 caracteres',
+                'document.required' => 'Si el tipo de documento es CIF, el documento es requerido',
+                'prefix.required' => 'El prefijo es requerido',
                 'prefix.min' => 'El prefijo son 3 caracteres',
                 'prefix.max' => 'El prefijo son 3 caracteres',
-                'mobile' => 'Este campo es obligatorio',
-                'mobile.min' => 'El movil tiene 9 caracteres',
-                'mobile.max' => 'El movil tiene 9 caracteres',
-                'phone.min' => 'El movil tiene 9 caracteres',
-                'phone.max' => 'El movil tiene 9 caracteres',
+                'mobile' => 'El movil es obligatorio',
+                'mobile.min' => 'El movil debe tener solo 9 caracteres',
+                'mobile.max' => 'El movil debe tener solo 9 caracteres',
+                'phone.min' => 'El telefono debe tener solo 9 caracteres',
+                'phone.max' => 'El telefono debe tener solo 9 caracteres',
             ];
     }
 

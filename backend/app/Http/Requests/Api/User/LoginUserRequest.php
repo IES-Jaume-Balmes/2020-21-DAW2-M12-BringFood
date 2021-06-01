@@ -35,9 +35,9 @@ class LoginUserRequest extends FormRequest
 
     public function messages()
     {
-        return ['email.required' => 'Este campo es obligatorio',
-                'password.required' => 'Este campo es obligatorio',
-                'password.min' => 'Este campo debe tener minimo 6 caracteres',
+        return ['email.required' => 'El email es requerido',
+                'password.required' => 'El password es obligatorio',
+                'password.min' => 'El password debe tener minimo 6 caracteres',
             ];
     }
 

@@ -7,7 +7,9 @@ use Illuminate\Http\Request;
 use App\Http\Requests\Api\Client\CreateClientRequest;
 use App\Models\User;
 use App\Api\RequestOk;
+use App\Api\RequestKo;
 use Illuminate\Support\Facades\Hash;
+use App\Util\DocumentValidation;
 
 class ClientController extends Controller
 {
@@ -29,6 +31,25 @@ class ClientController extends Controller
      */
     public function store(CreateClientRequest $request)
     {
+        //verify is document correct
+        if($request->type_document=='CIF'){
+            //VALIDAR CIF
+            $documentValidation=new DocumentValidation($request->document);
+            //if($documentValidation->is)
+        }else if($request->type_document=='NIF' && $request->document!=''){
+            //VALIDAR NIF
+            $documentValidation=new DocumentValidation($request->document);
+            if(!$documentValidation->isNIF()){
+                return (new RequestKo())->invalidDocument();
+            }
+        }else if($request->type_document=='NIE' && $request->document!=''){
+            //VALIDAR NIE
+            $documentValidation=new DocumentValidation($request->document);
+            if(!$documentValidation->isNIE()){
+                return (new RequestKo())->invalidDocument();
+            }
+        }
+
         $user=User::create([
             'name' => $request->name,
             'email' => $request->email,
