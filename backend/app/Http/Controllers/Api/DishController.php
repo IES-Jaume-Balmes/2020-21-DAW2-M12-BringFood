@@ -46,7 +46,8 @@ class DishController extends Controller
             $mytimeNew= str_replace(":","",$mytime->toDateTimeString());
             $nombre=$mytimeNew.'_'.$request->file('img_url')->getClientOriginalName();
             $request->file('img_url')->move($ruta,$nombre);
-            $url_img=$ruta.$nombre;
+            //$url_img=$ruta.$nombre;
+            $url_img=$nombre;
         }else
         {
             return response()->json(["message" => "Select image first."]);

@@ -1,1 +1,11 @@
-<p>show-dishes works!</p>
+<div class="card-group">
+  <div class="card" *ngFor="let dish of dishes">
+    <img src="./assets/{{dish.img_url}}" class="card-img-top" alt="...">
+    <div class="card-body">
+      <h5 class="card-title">{{dish.name}}</h5>
+      <p class="card-text">{{dish.detail}}</p>
+      <p class="card-text"><small class="text-muted">creado: {{dish.created_at}}</small></p>
+      <h3 class="d-flex flex-row-reverse">{{dish.price}} €</h3>
+    </div>
+  </div>
+</div>

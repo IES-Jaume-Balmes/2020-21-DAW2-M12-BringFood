@@ -26,11 +26,13 @@ Route::group(['middleware' => ['jwt.auth'], 'prefix' => 'v1'], function () {
     Route::get('/user/{user}','App\Http\Controllers\Api\UserController@show');
     Route::delete('/user/{user}','App\Http\Controllers\Api\UserController@destroy');
     Route::get('/users','App\Http\Controllers\Api\UserController@index');
+    Route::post('/user/save','App\Http\Controllers\Api\UserController@store');
+
+
 });
 
 Route::group(['middleware' => [], 'prefix' => 'v1'], function () {
 
-    Route::post('/user/save','App\Http\Controllers\Api\UserController@store');
     // Auth
     Route::post('/auth/login', 'App\Http\Controllers\Api\TokensController@login');
     //Route::post('/auth/refresh', 'App\Http\Controllers\TokensController@refreshToken');
@@ -39,17 +41,17 @@ Route::group(['middleware' => [], 'prefix' => 'v1'], function () {
 
     Route::post('/client/save','App\Http\Controllers\Api\ClientController@store');
 
-    Route::post('/payment/save','App\Http\Controllers\Api\PaymentController@store');
-    Route::get('/paymentes','App\Http\Controllers\Api\PaymentController@index');
-    Route::get('/payment/{payment}','App\Http\Controllers\Api\PaymentController@show');
-    Route::put('/payment/{payment}','App\Http\Controllers\Api\PaymentController@update');
-    Route::delete('/payment/{payment}','App\Http\Controllers\Api\PaymentController@destroy');
-
     Route::post('/dish/save','App\Http\Controllers\Api\DishController@store');
     Route::get('/dishes','App\Http\Controllers\Api\DishController@index');
     Route::get('/dish/{dish}','App\Http\Controllers\Api\DishController@show');
     Route::put('/dish/{dish}','App\Http\Controllers\Api\DishController@update');
     Route::delete('/dish/{dish}','App\Http\Controllers\Api\DishController@destroy');
+
+    Route::post('/payment/save','App\Http\Controllers\Api\PaymentController@store');
+    Route::get('/paymentes','App\Http\Controllers\Api\PaymentController@index');
+    Route::get('/payment/{payment}','App\Http\Controllers\Api\PaymentController@show');
+    Route::put('/payment/{payment}','App\Http\Controllers\Api\PaymentController@update');
+    Route::delete('/payment/{payment}','App\Http\Controllers\Api\PaymentController@destroy');
 
     Route::post('/order/save','App\Http\Controllers\Api\OrderController@store');
     Route::get('/orders','App\Http\Controllers\Api\OrderController@index');

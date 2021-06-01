@@ -20,6 +20,7 @@ const appRoutes = [
   {path: 'user/register', component: RegisterComponent},
   {path: 'dish/register', component: DishRegisterComponent, canActivate: [AuthGuard]},
   {path: 'dish/list', component: ShowDishesComponent, canActivate: [AuthGuard]},
+  {path: '', component: ShowDishesComponent},
  ];
 
 @NgModule({
